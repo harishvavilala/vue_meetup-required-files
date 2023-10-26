@@ -1,0 +1,62 @@
+<template>
+  <template>
+    <div
+      class="p-12 bg-gray-100 w-full h-full min-h-screen flex flex-col items-center"
+    >
+      <!-- <div v-if="user != null">
+      <h1>{{ user.user_metadata.user_name }}</h1>
+      <button @click="signOut" class="grid justify-items-end">sign out</button>
+    </div> -->
+      <div class="prose mb-12">
+        <h1>
+          <span class="font-medium">
+            Course:
+            <span class="font-bold">Nuxt Basics with Harish Vavilala</span>
+          </span>
+        </h1>
+      </div>
+
+      <div class="flex flex-row justify-center flex-grow">
+        <div
+          class="prose mr-4 p-8 bg-white rounded-md min-w-[20ch] flex flex-col"
+        >
+          <div
+            class="space-y-1 mb-4 flex flex-col"
+            v-for="(chapter, index) in course.chapters"
+            :key="chapter.slug"
+          >
+            <h4 class="flex justify-between items-center">
+              {{ chapter.title }}
+            </h4>
+            <NuxtLink
+              v-for="(lesson, index) in chapter.lessons"
+              :key="lesson.slug"
+              class="flex flex-row space-x-1 no-underline prose-sm font-normal py-1 px-4 -mx-4"
+              to=""
+              :class="{
+                'text-blue-500': lesson.path === $route.fullPath,
+                'text-gray-600': lesson.path !== $route.fullPath,
+              }"
+            >
+              {{ lesson.path }}
+              <span class="text-gray-500">{{ index + 1 }}.</span>
+              <span>{{ lesson.title }}</span>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div class="prose p-12 bg-white rounded-md w-[65ch]">
+          <h2>Lesson</h2>
+          <NuxtPage />
+        </div>
+      </div>
+    </div>
+  </template>
+</template>
+<script setup lang="ts">
+const course = useCourse();
+
+// function getpath(chapterSlug, lessonSlug) {
+//   return `/courses/chapter/${chapterSlug}/lesson/${lessonSlug}`;
+// }
+</script>
